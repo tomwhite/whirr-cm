@@ -1,0 +1,50 @@
+Follow these instructions to start a cluster on EC2 running SCM Express.
+SCM Express allows you to install a Hadoop cluster.
+
+Run the following commands from you local machine
+
+# Set AWS credentials (you need an account, obviously)
+export AWS_ACCESS_KEY_ID=...
+export AWS_SECRET_ACCESS_KEY=...
+
+# Install Whirr
+curl -O http://www.apache.org/dist/incubator/whirr/whirr-0.5.0-incubating/whirr-0.5.0-incubating.tar.gz
+tar zxf whirr-0.5.0-incubating.tar.gz
+export PATH=$PATH:$(pwd)/whirr-0.5.0-incubating/bin
+# Generate an SSH keypair for Whirr
+ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa_whirr
+
+# Launch a cluster consisting of a 'head' SCM server node (to manage the SCM installation) and a number of nodes that the cluster itself runs on.
+# Change the number in the command line below if you want a different sized cluster. (TODO)
+whirr launch-cluster --config scm-ec2.properties \
+  --private-key-file ~/.ssh/id_rsa_whirr
+
+# Install SCM
+# Log into the SCM server...
+scmserver=$(grep scmserver ~/.whirr/scmcluster/instances | awk '{print $3}')
+ssh -i ~/.ssh/id_rsa_whirr $scmserver
+# ... and install SCM (you will need to accept the license agreements)
+wget http://archive.cloudera.com/scm/installer/latest/scm-installer.bin; chmod u+x scm-installer.bin; sudo ./scm-installer.bin; exit
+
+The next step is to run the SCM Admin Console to install and configure Hadoop.
+The instructions for this can be found at https://ccp.cloudera.com/display/CDHDOC/Installing+CDH3+with+Service+and+Configuration+Manager+Express+Edition
+
+Get started by connecting to the SCM server URL printed by the launch command; for example:
+
+firefox http://$scmserver:7180
+
+In the step where you are asked for cluster hosts, paste in the output of running
+grep scmnode ~/.whirr/scmcluster/instances | awk '{print $4}'
+
+When prompted for "Provide SSH login credentials" choose "another user" and
+enter your username for the machine you used for launching the cluster.
+
+For "Authentication Method", choose "All hosts accept same public key" and enter
+your public and private keys generated earlier (browse to
+~/.ssh/id_rsa_whirr.pub and ~/.ssh/id_rsa_whirr). Leave the passphrase blank.
+
+Complete the steps in the SCM installation guide.
+
+When you want to shutdown the cluster, run the following command:
+
+whirr destroy-cluster --config scm-ec2.properties
