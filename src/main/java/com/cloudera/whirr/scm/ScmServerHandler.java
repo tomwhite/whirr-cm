@@ -1,6 +1,7 @@
 package com.cloudera.whirr.scm;
 
 import static org.apache.whirr.RolePredicates.role;
+import static org.jclouds.scriptbuilder.domain.Statements.call;
 
 import java.io.IOException;
 
@@ -18,6 +19,11 @@ public class ScmServerHandler extends ClusterActionHandlerSupport {
   @Override public String getRole() { return ROLE; }
   
   @Override
+  protected void beforeBootstrap(ClusterActionEvent event) throws IOException {
+    addStatement(event, call("install_scm"));
+  }
+
+  @Override
   protected void beforeConfigure(ClusterActionEvent event) throws IOException,
       InterruptedException {
     event.getFirewallManager().addRule(
@@ -31,8 +37,8 @@ public class ScmServerHandler extends ClusterActionHandlerSupport {
     Cluster cluster = event.getCluster();
     Instance master = cluster.getInstanceMatching(role(ROLE));
     String masterAddress = master.getPublicAddress().getHostName();
-    System.out.printf("After installation the SCM server UI will be available" +
-        " at http://%s:%s\n", masterAddress, CLIENT_PORT);
+    System.out.printf("SCM Admin Console available at http://%s:%s\n",
+        masterAddress, CLIENT_PORT);
   }
 
 }

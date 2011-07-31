@@ -19,19 +19,10 @@ ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa_whirr
 whirr launch-cluster --config scm-ec2.properties \
   --private-key-file ~/.ssh/id_rsa_whirr
 
-# Install SCM
-# Log into the SCM server...
-scmserver=$(grep scmserver ~/.whirr/scmcluster/instances | awk '{print $3}')
-ssh -i ~/.ssh/id_rsa_whirr $scmserver
-# ... and install SCM (you will need to accept the license agreements)
-wget http://archive.cloudera.com/scm/installer/latest/scm-installer.bin; chmod u+x scm-installer.bin; sudo ./scm-installer.bin; exit
-
 The next step is to run the SCM Admin Console to install and configure Hadoop.
 The instructions for this can be found at https://ccp.cloudera.com/display/CDHDOC/Installing+CDH3+with+Service+and+Configuration+Manager+Express+Edition
 
-Get started by connecting to the SCM server URL printed by the launch command; for example:
-
-firefox http://$scmserver:7180
+Get started by connecting to the SCM server URL printed by the launch command.
 
 In the step where you are asked for cluster hosts, paste in the output of running
 grep scmnode ~/.whirr/scmcluster/instances | awk '{print $4}'

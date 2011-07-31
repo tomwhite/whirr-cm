@@ -1,2 +1,3 @@
+com.cloudera.whirr.scm.CdhClientHandler
 com.cloudera.whirr.scm.ScmNodeHandler
 com.cloudera.whirr.scm.ScmServerHandler
