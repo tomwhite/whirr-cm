@@ -39,6 +39,23 @@ public class ScmServerHandler extends ClusterActionHandlerSupport {
     String masterAddress = master.getPublicAddress().getHostName();
     System.out.printf("SCM Admin Console available at http://%s:%s\n",
         masterAddress, CLIENT_PORT);
-  }
+    
+    System.out.println("Nodes in cluster (copy into text area when setting up the cluster):");
+    for (Instance i : cluster.getInstancesMatching(role(ScmNodeHandler.ROLE))) {
+      System.out.println(i.getPrivateIp());
+    }
+    System.out.println();
+    
+    System.out.println("Authentication Method (choose \"All hosts accept same public key\"):");
+    System.out.printf("User name (choose \"another user\"): %s\n",
+        System.getProperty("user.name"));
+    String privateKey = event.getClusterSpec().getPrivateKeyFile().getCanonicalPath();
+    System.out.printf("Public key file: %s\n", privateKey + ".pub");
+    System.out.printf("Private key file: %s (empty passphrase)\n", privateKey);
+    System.out.println();
+
+    System.out.printf("Hue UI will be available at http://%s:8088\n",
+        masterAddress);
+}
 
 }

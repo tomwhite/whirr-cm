@@ -22,18 +22,6 @@ EOF
 }
 
 function install_cdh() {
-  local OPTIND
-  local OPTARG
-
-  CLOUD_PROVIDER=
-  while getopts "c:" OPTION; do
-    case $OPTION in
-    c)
-      CLOUD_PROVIDER="$OPTARG"
-      ;;
-    esac
-  done
-  
   REPO=${REPO:-cdh3}
   HADOOP=hadoop-${HADOOP_VERSION:-0.20}
   HADOOP_CONF_DIR=/etc/$HADOOP/conf.dist

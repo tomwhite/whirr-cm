@@ -1,6 +1,11 @@
 Follow these instructions to start a cluster on EC2 running SCM Express.
 SCM Express allows you to install a Hadoop cluster.
 
+This method starts a cluster with
+ * one node running the SCM Admin Console,
+ * one node for running CDH client programs (e.g. to launch MapReduce jobs), and
+ * a user-selectable number of nodes for the Hadoop cluster
+
 Run the following commands from you local machine
 
 # Set AWS credentials (you need an account, obviously)
@@ -19,23 +24,19 @@ ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa_whirr
 whirr launch-cluster --config scm-ec2.properties \
   --private-key-file ~/.ssh/id_rsa_whirr
 
-The next step is to run the SCM Admin Console to install and configure Hadoop.
-The instructions for this can be found at https://ccp.cloudera.com/display/CDHDOC/Installing+CDH3+with+Service+and+Configuration+Manager+Express+Edition
+The next step is to run the SCM Admin Console to install and configure Hadoop,
+using the instructions at
+https://ccp.cloudera.com/display/CDHDOC/Installing+CDH3+with+Service+and+Configuration+Manager+Express+Edition
 
-Get started by connecting to the SCM server URL printed by the launch command.
+The output of the launch cluster command includes settings for the cluster hosts
+and the authentication method to be used while running the SCM Admin Console.
 
-In the step where you are asked for cluster hosts, paste in the output of running
-grep scmnode ~/.whirr/scmcluster/instances | awk '{print $4}'
+Once the Hadoop cluster is up and running you can use it via Hue (the URL
+is printed by the launch cluster command), or from the CDH client machine. In
+the latter case, copy the configuration files from the SCM Admin Console to the
+CDH client machine using the SCM instructions.
 
-When prompted for "Provide SSH login credentials" choose "another user" and
-enter your username for the machine you used for launching the cluster.
-
-For "Authentication Method", choose "All hosts accept same public key" and enter
-your public and private keys generated earlier (browse to
-~/.ssh/id_rsa_whirr.pub and ~/.ssh/id_rsa_whirr). Leave the passphrase blank.
-
-Complete the steps in the SCM installation guide.
-
-When you want to shutdown the cluster, run the following command:
+Finally, when you want to shutdown the cluster, run the following command. Note
+that all data on the cluster will be lost.
 
 whirr destroy-cluster --config scm-ec2.properties
