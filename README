@@ -68,7 +68,20 @@ and the authentication method to be used while running the SCM Admin Console.
 Once the Hadoop cluster is up and running you can use it via Hue (the URL
 is printed by the launch cluster command), or from the CDH client machine. In
 the latter case, copy the configuration files from the SCM Admin Console to the
-CDH client machine using the SCM instructions.
+CDH client machine using the SCM instructions. You can do this by downloading the
+zip file to your local machine then SCP-ing to the CDH client with:
+
+% scp -i ~/.ssh/id_rsa_scm /path/to/config.zip <cdh-client-host>:
+
+Then SSH to the CDH client
+
+% ssh -i ~/.ssh/id_rsa_scm <cdh-client-host>
+% unzip config.zip
+% export HADOOP_CONF_DIR=$(pwd)/hadoop-conf
+
+Now you can interact with the cluster, e.g. to list files in HDFS:
+
+% hadoop fs -ls /tmp
 
 5. Shutdown the cluster
 =======================

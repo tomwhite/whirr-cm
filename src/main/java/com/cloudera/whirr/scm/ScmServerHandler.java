@@ -3,7 +3,11 @@ package com.cloudera.whirr.scm;
 import static org.apache.whirr.RolePredicates.role;
 import static org.jclouds.scriptbuilder.domain.Statements.call;
 
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Iterators;
+
 import java.io.IOException;
+import java.util.Set;
 
 import org.apache.whirr.Cluster;
 import org.apache.whirr.Cluster.Instance;
@@ -41,7 +45,8 @@ public class ScmServerHandler extends ClusterActionHandlerSupport {
         masterAddress, CLIENT_PORT);
     
     System.out.println("Nodes in cluster (copy into text area when setting up the cluster):");
-    for (Instance i : cluster.getInstancesMatching(role(ScmNodeHandler.ROLE))) {
+    Set<Instance> nodes = cluster.getInstancesMatching(role(ScmNodeHandler.ROLE));
+    for (Instance i : nodes) {
       System.out.println(i.getPrivateIp());
     }
     System.out.println();
@@ -54,8 +59,11 @@ public class ScmServerHandler extends ClusterActionHandlerSupport {
     System.out.printf("Private key file: %s (empty passphrase)\n", privateKey);
     System.out.println();
 
-    System.out.printf("Hue UI will be available at http://%s:8088\n",
-        masterAddress);
+    if (nodes.size() > 0) {
+      // assumes set has stable ordering
+      System.out.printf("Hue UI will be available at http://%s:8088\n",
+          Iterables.get(nodes, 0));
+    }
 }
 
 }
