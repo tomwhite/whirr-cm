@@ -54,8 +54,8 @@ the cluster is ready to be used.
 3. Configure the Hadoop cluster
 ===============================
 
-The next step is to run the SCM Admin Console to install and configure Hadoop,
-using the instructions at
+The next step is to run the SCM Admin Console -- at the URL printed by the Whirr
+command -- to install and configure Hadoop, using the instructions at
 
 https://ccp.cloudera.com/display/CDHDOC/Installing+CDH3+with+Service+and+Configuration+Manager+Express+Edition
 
