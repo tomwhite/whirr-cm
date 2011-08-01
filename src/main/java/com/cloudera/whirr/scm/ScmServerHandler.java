@@ -4,7 +4,6 @@ import static org.apache.whirr.RolePredicates.role;
 import static org.jclouds.scriptbuilder.domain.Statements.call;
 
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Iterators;
 
 import java.io.IOException;
 import java.util.Set;
