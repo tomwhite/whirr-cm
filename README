@@ -39,7 +39,16 @@ Create a password-less SSH keypair for Whirr to use:
 
 % ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa_scm
 
-2. Launch an SCM Cluster
+2. Install the Whirr SCM Express Service Plugin
+===============================================
+
+Download the plugin from
+
+https://github.com/tomwhite/whirr-scm/archives/master
+
+and copy it into the lib directory of your Whirr installation.
+
+3. Launch an SCM Cluster
 ========================
 
 The following command will start a cluster with 5 Hadoop nodes. To change this
@@ -51,7 +60,7 @@ launch a CDH client node.
 Whirr will report progress to the console as it runs. The command will exit when
 the cluster is ready to be used.
 
-3. Configure the Hadoop cluster
+4. Configure the Hadoop cluster
 ===============================
 
 The next step is to run the SCM Admin Console -- at the URL printed by the Whirr
@@ -62,7 +71,7 @@ https://ccp.cloudera.com/display/CDHDOC/Installing+CDH3+with+Service+and+Configu
 The output of the Whirr command includes settings for the cluster hosts
 and the authentication method to be used while running the SCM Admin Console.
 
-4. Use the cluster
+5. Use the cluster
 ==================
 
 Once the Hadoop cluster is up and running you can use it via Hue (the URL
@@ -83,7 +92,7 @@ Now you can interact with the cluster, e.g. to list files in HDFS:
 
 % hadoop fs -ls /tmp
 
-5. Shutdown the cluster
+6. Shutdown the cluster
 =======================
 
 Finally, when you want to shutdown the cluster, run the following command. Note
