@@ -2,16 +2,16 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.cloudera</groupId>
-  <artifactId>whirr-scm</artifactId>
+  <artifactId>whirr-cm</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
-  <name>whirr-scm</name>
+  <version>1.1-SNAPSHOT</version>
+  <name>whirr-cm</name>
   <url>http://maven.apache.org</url>
   <dependencies>
     <dependency>
       <groupId>org.apache.whirr</groupId>
       <artifactId>whirr-core</artifactId>
-      <version>0.5.0-incubating</version>
+      <version>0.7.1</version>
     </dependency>
   </dependencies>
   <build>

@@ -1,23 +1,22 @@
-Launching SCM Express with Whirr
-================================
+Launching Cloudera Manager with Whirr
+=====================================
 
-Follow these instructions to start a cluster on EC2 running SCM Express.
-SCM Express allows you to install, run, and manage a Hadoop cluster.
+Follow these instructions to start a cluster on EC2 running Cloudera Manager.
+Cloudera Manager Express allows you to install, run, and manage a Hadoop cluster.
 
 This method uses Whirr to start a cluster with
- * one node running the SCM Admin Console,
- * one node for running CDH client programs (e.g. to launch MapReduce jobs), and
+ * one node running the Cloudera Manager Admin Console, and
  * a user-selectable number of nodes for the Hadoop cluster itself
 
-Once Whirr has started the cluster, you use SCM Express in the usual way.
- 
+Once Whirr has started the cluster, you use Cloudera Manager in the usual way.
+
 Note that you can omit the CDH client node if you want to run programs entirely
 from Hue.
 
 It is not currently possible to launch Hadoop programs from your local machine
-that use the cluster, due to the way SCM manages host addresses. To workaround
-this limitation it is recommended that you start a CDH client node in the cloud
-to run programs from.
+that use the cluster, due to the way Cloudera Manager manages host addresses.
+To work around this limitation you can add a Gateway role which installs CDH
+client components on a node in the cloud to run programs from.
 
 1. Install Whirr
 ================
@@ -31,31 +30,31 @@ Set your AWS credentials as environment variables:
 
 Download and install Whirr:
 
-% curl -O http://www.apache.org/dist/incubator/whirr/whirr-0.5.0-incubating/whirr-0.5.0-incubating.tar.gz
-% tar zxf whirr-0.5.0-incubating.tar.gz
-% export PATH=$PATH:$(pwd)/whirr-0.5.0-incubating/bin
+% curl -O http://www.apache.org/dist/incubator/whirr/whirr-0.7.1-incubating/whirr-0.7.1-incubating.tar.gz
+% tar zxf whirr-0.7.1-incubating.tar.gz
+% export PATH=$PATH:$(pwd)/whirr-0.7.1-incubating/bin
 
 Create a password-less SSH keypair for Whirr to use:
 
-% ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa_scm
+% ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa_cm
 
-2. Install the Whirr SCM Express Service Plugin
-===============================================
+2. Install the Whirr Cloudera Manager Service Plugin
+====================================================
 
 Download the plugin from
 
-https://github.com/tomwhite/whirr-scm/archives/master
+https://github.com/tomwhite/whirr-cm/archives/master
 
 and copy it into the lib directory of your Whirr installation.
 
-3. Launch an SCM Cluster
-========================
+3. Launch a Cloudera Manager Cluster
+====================================
 
 The following command will start a cluster with 5 Hadoop nodes. To change this
-number edit the scm-ec2.properties file. Edit the same file if you don't want to
+number edit the cm-ec2.properties file. Edit the same file if you don't want to
 launch a CDH client node.
 
-% whirr launch-cluster --config scm-ec2.properties
+% whirr launch-cluster --config cm-ec2.properties
 
 Whirr will report progress to the console as it runs. The command will exit when
 the cluster is ready to be used.
@@ -63,32 +62,27 @@ the cluster is ready to be used.
 4. Configure the Hadoop cluster
 ===============================
 
-The next step is to run the SCM Admin Console -- at the URL printed by the Whirr
-command -- to install and configure Hadoop, using the instructions at
+The next step is to run the Cloudera Manager Admin Console -- at the URL printed
+by the Whirr command -- to install and configure Hadoop, using the instructions
+at
 
-https://ccp.cloudera.com/display/CDHDOC/Installing+CDH3+with+Service+and+Configuration+Manager+Express+Edition
+https://ccp.cloudera.com/display/FREE400BETA/Automated+Installation+of+Cloudera+Manager+and+CDH
 
 The output of the Whirr command includes settings for the cluster hosts
-and the authentication method to be used while running the SCM Admin Console.
+and the authentication method to be used while running the Cloudera Manager
+Admin Console.
 
 5. Use the cluster
 ==================
 
 Once the Hadoop cluster is up and running you can use it via Hue (the URL
-is printed by the launch cluster command), or from the CDH client machine. In
-the latter case, copy the configuration files from the SCM Admin Console to the
-CDH client machine using the SCM instructions. You can do this by downloading the
-zip file to your local machine then SCP-ing to the CDH client with:
+is printed by the launch cluster command), or from a CDH gateway machine. In
+the latter case, follow these instructions to add a gateway role
 
-% scp -i ~/.ssh/id_rsa_scm /path/to/config.zip <cdh-client-host>:
+https://ccp.cloudera.com/display/FREE400BETA/Adding+Role+Instances
 
-Then SSH to the CDH client
-
-% ssh -i ~/.ssh/id_rsa_scm <cdh-client-host>
-% unzip config.zip
-% export HADOOP_CONF_DIR=$(pwd)/hadoop-conf
-
-Now you can interact with the cluster, e.g. to list files in HDFS:
+Then SSH to the gateway machine. Now you can interact with the cluster,
+e.g. to list files in HDFS:
 
 % hadoop fs -ls /tmp
 
@@ -98,4 +92,4 @@ Now you can interact with the cluster, e.g. to list files in HDFS:
 Finally, when you want to shutdown the cluster, run the following command. Note
 that all data and state stored on the cluster will be lost.
 
-% whirr destroy-cluster --config scm-ec2.properties
+% whirr destroy-cluster --config cm-ec2.properties

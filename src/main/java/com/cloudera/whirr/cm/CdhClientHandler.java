@@ -1,4 +1,4 @@
-package com.cloudera.whirr.scm;
+package com.cloudera.whirr.cm;
 
 import static org.apache.whirr.RolePredicates.role;
 import static org.jclouds.scriptbuilder.domain.Statements.call;

@@ -1,4 +1,4 @@
-package com.cloudera.whirr.scm;
+package com.cloudera.whirr.cm;
 
 import static org.apache.whirr.RolePredicates.role;
 
@@ -11,16 +11,16 @@ import org.apache.whirr.service.ClusterActionEvent;
 import org.apache.whirr.service.ClusterActionHandlerSupport;
 import org.apache.whirr.service.FirewallManager.Rule;
 
-public class ScmNodeHandler extends ClusterActionHandlerSupport {
+public class CmNodeHandler extends ClusterActionHandlerSupport {
 
-  public static final String ROLE = "scmnode";
-  private static final String PORTS = "scmnode.ports";
+  public static final String ROLE = "cmnode";
+  private static final String PORTS = "cmnode.ports";
   
   @Override public String getRole() { return ROLE; }
   
   private Configuration getConfiguration(ClusterSpec spec)
       throws IOException {
-    return getConfiguration(spec, "whirr-scm-default.properties");
+    return getConfiguration(spec, "whirr-cm-default.properties");
   }
   
   @Override
