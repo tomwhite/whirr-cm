@@ -42,12 +42,11 @@ ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa_cm
 
 ## Install the Whirr Cloudera Manager Service Plugin
 
-Download the plugin from
+Download the Whirr CM plugin into the lib directory of your Whirr installation.
 
 ```bash
 $(cd whirr-0.7.1/lib && curl -O https://github.com/downloads/tomwhite/whirr-cm/whirr-cm-1.1.jar)
 ```
-and copy it into the lib directory of your Whirr installation.
 
 ## Launch a Cloudera Manager Cluster
 
