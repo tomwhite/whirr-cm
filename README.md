@@ -45,7 +45,7 @@ ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa_cm
 Download the plugin from
 
 ```bash
-$(cd whirr-0.7.1/lib && curl -O https://github.com/tomwhite/whirr-cm/archives/master)
+$(cd whirr-0.7.1/lib && curl -O https://github.com/downloads/tomwhite/whirr-cm/whirr-cm-1.1.jar)
 ```
 and copy it into the lib directory of your Whirr installation.
 
