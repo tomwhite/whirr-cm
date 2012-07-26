@@ -48,6 +48,12 @@ Download the Whirr CM plugin into the lib directory of your Whirr installation.
 $(cd whirr-0.7.1/lib && curl -O https://github.com/downloads/tomwhite/whirr-cm/whirr-cm-1.1.jar)
 ```
 
+## Get your whirr-cm configuration
+
+```bash
+curl -O https://raw.github.com/tomwhite/whirr-cm/master/cm-ec2.properties
+```
+
 ## Launch a Cloudera Manager Cluster
 
 The following command will start a cluster with 5 Hadoop nodes. To change this
