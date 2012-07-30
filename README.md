@@ -73,7 +73,7 @@ The next step is to run the Cloudera Manager Admin Console -- at the URL printed
 by the Whirr command -- to install and configure Hadoop, using the instructions
 at
 
-https://ccp.cloudera.com/display/FREE400BETA/Automated+Installation+of+Cloudera+Manager+and+CDH
+https://ccp.cloudera.com/display/FREE4DOC/Automated+Installation+of+Cloudera+Manager+and+CDH
 
 The output of the Whirr command includes settings for the cluster hosts
 and the authentication method to be used while running the Cloudera Manager
@@ -85,7 +85,7 @@ Once the Hadoop cluster is up and running you can use it via Hue (the URL
 is printed by the launch cluster command), or from a CDH gateway machine. In
 the latter case, follow these instructions to add a gateway role
 
-https://ccp.cloudera.com/display/FREE400BETA/Adding+Role+Instances
+https://ccp.cloudera.com/display/FREE4DOC/Adding+Role+Instances
 
 Then SSH to the gateway machine. Now you can interact with the cluster,
 e.g. to list files in HDFS:
