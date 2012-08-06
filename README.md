@@ -1,7 +1,7 @@
 # Launching Cloudera Manager with Whirr
 
 Follow these instructions to start a cluster on EC2 running Cloudera Manager.
-Cloudera Manager Express allows you to install, run, and manage a Hadoop cluster.
+Cloudera Manager allows you to install, run, and manage a Hadoop cluster.
 
 This method uses Whirr to start a cluster with
  * one node running the Cloudera Manager Admin Console, and
