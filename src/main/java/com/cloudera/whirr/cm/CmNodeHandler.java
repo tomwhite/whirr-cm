@@ -18,6 +18,7 @@
 package com.cloudera.whirr.cm;
 
 import static org.apache.whirr.RolePredicates.role;
+import static org.jclouds.scriptbuilder.domain.Statements.call;
 
 import java.io.IOException;
 import java.util.List;
@@ -39,7 +40,12 @@ public class CmNodeHandler extends ClusterActionHandlerSupport {
       throws IOException {
     return getConfiguration(spec, "whirr-cm-default.properties");
   }
-  
+
+  @Override
+  protected void beforeBootstrap(ClusterActionEvent event) throws IOException {
+  	addStatement(event, call("configure_hostnames"));
+  }
+
   @Override
   protected void beforeConfigure(ClusterActionEvent event) throws IOException,
       InterruptedException {

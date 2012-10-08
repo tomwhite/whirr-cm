@@ -35,7 +35,8 @@ public class CdhClientHandler extends ClusterActionHandlerSupport {
   
   @Override
   protected void beforeBootstrap(ClusterActionEvent event) throws IOException {
-    addStatement(event, call("install_cdh"));
+  	addStatement(event, call("configure_hostnames"));
+  	addStatement(event, call("install_cdh"));
   }
   
   @Override
